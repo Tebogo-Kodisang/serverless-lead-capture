@@ -5,29 +5,37 @@ Epic Books is a mock company created for this project. The business needed a sim
 
 To solve this, I built a serverless solution on AWS. This removes the need to manage servers, which also reduces infrastructure costs and eliminates the need to hire staff to maintain them. The solution automatically scales as website visitors increase and improves security by using managed AWS services instead of self-hosted systems.
 
-## Business Goals
-* **Global Reach**: Ensure the website is highly responsive for users regardless of their location.
-* **Security & Privacy**: Protect customer data using industry-standard encryption and secure storage.
-* **Scalability**: Build a system that automatically handles spikes in traffic as the business grows.
-* **Operational Efficiency**: Eliminate the need for manual server management and reduce staffing overhead.
-* **Lead/Customer Capture Form**: Provide a simple, user-friendly interface to collect names and email addresses.
+## Business Requirements
+
+The Epic Books provided the following requirements:
+
+- The website will be built using HTML, CSS, and JavaScript.
+- Customers must be able to download an ebook.
+- Customers must receive an email notification after downloading the ebook.
+- Customer details (name and email) must be stored in a database after download.
+- The website must serve global users and remain fast and responsive.
+- The website has 500 active users with 10–15 ebook downloads per day.
+- All requests must use HTTPS.
+- The domain name must be theepicbooks.com.
+
 
 ## Well-Architected Framework Considerations
 
-This solution was designed using the AWS Well-Architected Framework as a guiding principle. All six pillars were considered during the design process, and the AWS Well-Architected Tool was used to review architectural decisions, evaluate trade-offs, and identify potential improvements.
+My solution was designed using the AWS Well-Architected Framework as a guiding principle. All six pillars were considered during the design process, and the AWS Well-Architected Tool was used to review architectural decisions, evaluate trade-offs, and identify potential  areas of improvement.
 
-Based on the business goals of The Epic Books, the applicable AWS Well-Architected Framework pillars are:
+Based on the stated business requirements of The Epic Books, the applicable AWS Well-Architected Framework pillars are:
 
-- Business Goal: Global Reach (Performance Efficiency Pillar)  
-- Business Goal: Security & Privacy (Security Pillar)  
-- Business Goal: Scalability (Reliability & Performance Efficiency Pillars)  
-- Business Goal: Operational Efficiency (Operational Excellence & Cost Optimization Pillars)  
-- Business Goal: Lead/Customer Capture Form (Security & Operational Excellence Pillars)  
+- Global website performance (Performance Efficiency Pillar)
+- HTTPS and data protection (Security Pillar)
+- Store customer details in a database (Security & Reliability Pillars)
+- Email notification after download (Operational Excellence Pillar)
+- Support 500 active users and 10–15 daily downloads (Cost Optimization & Performance Efficiency Pillars)
 
-Having considered these goals, I decided to prioritize these particluar pillars below,  in order of importance:
+Having considered these requirements, I decided to prioritize the following pillars in order of importance:
 
-1. Security  
-2. Cost Optimization  
+1. Security
+2. Cost Optimization
 3. Performance Efficiency
 
-These pillars helped drive my architectural decisions for the serverless solution: data is secured with managed AWS services and HTTPS, serverless components save good money by scaling automatically and eliminating idle resources, and performance is optimized with fast and swift global content delivery. The implementation specifics are detailed in the "How It Works" section.
+These pillars helped drive my architectural decisions for the serverless solution. Data is secured using managed AWS services and HTTPS, serverless components reduce costs by automatically scaling and eliminating idle resources, and performance is optimized to support global users efficiently. The architecture details are explained in the “How It Works” section. It's also worth mentioning that these priorities might be switched and modified based on business requirements. 
+
