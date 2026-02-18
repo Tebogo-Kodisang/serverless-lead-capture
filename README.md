@@ -1,9 +1,11 @@
 # Serverless Lead Capture on AWS: The Epic Books
 
 ## Project Overview
-Epic Books is a mock company created for this project. The business needed a simple way to collect customer names and email addresses from its website.
+Epic Books is a mock company that needs a simple way to collect customer names and email addresses  through their website. 
+Traditional setups rely on fixed servers that are expensive to maintain and slow for global users. These systems can't handle sudden traffic spikes, leading to crashes and lost customers. Furthermore, manual security patching introduces risks that could compromise user data or result in total site downtime.
 
-To solve this, I built a serverless solution on AWS. This removes the need to manage servers, which also reduces infrastructure costs and eliminates the need to hire staff to maintain them. The solution automatically scales as website visitors increase and improves security by using managed AWS services instead of self-hosted systems.
+To solve this, I built a serverless solution on AWS. This eliminates the need to manage servers, reducing infrastructure costs and eliminating the need to hire staff for maintenance (patching). The solution automatically scales as website visitors increase and improves security by using managed AWS services instead of vulnerable self-hosted systems.
+
 
 ## Business Requirements
 
