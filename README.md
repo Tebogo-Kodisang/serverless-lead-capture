@@ -55,4 +55,18 @@ Why This Approach:
 - Serverless architecture will minimize costs because there will be no need to manage servers or to maintain them.
 - AWS Certificate Manager will develop trust with clients because the connection will be perceived as safe and customer data will be protected. 
 
+Implementation Details:
+
+1. Prepare website files and code (HTML, FONTS, CSS, JavaScript, images)
+2. Create an S3 bucket for static website hosting.
+3. Enable the static website feature on S3 bucket.
+4. Configure public access and added a bucket policy that grants users "GetObject" permissions.
+5. Upload an error document for when users are unable to access the site.
+6. Upload all website files to the S3 bucket.
+7. Create a CloudFront distribution for the website using the S3 bucket as the origin type.
+8. Request a public TLS certificate in ACM for theepicbooks.com.
+9. Route traffic to the CloudFront distribution on Route 53. 
+
+
+
 
