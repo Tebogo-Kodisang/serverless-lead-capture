@@ -67,6 +67,33 @@ Implementation Details:
 8. Request a public TLS certificate in ACM for theepicbooks.com.
 9. Route traffic to the CloudFront distribution on Route 53. 
 
+Alternatives Considered and Trade-offs:
+
+In this section, we'll look at other viable AWS alternatives.
+
+1. Direct access to S3 with no CloudFront
+Rather than using CloudFront, users access the website using the web address that belongs to the S3 bucket.
+
+Pros:
+- Removes the responsibility of managing CloudFront distributions and invalidation.When you make changes to your website, users will see them immediately, without having to wait for a cache to clear.
+
+Cons:
+- S3 buckets are limited to a particular region, causing delays for customers outside that region. This goes against the company's purpose of providing a quick and responsive website for worldwide consumers.
+- In order to get HTTPS, you would need Amazon CloudFront in front of S3 so that you can attach an SSL certificate using Certificate Manager.This goes directly against our business requirement that all traffic must use HTTPS.
+- It costs more to send data directly from S3 to the internet than to use CloudFront.
+- With this type of architecture, you would need to make your S3 bucket public. That means anyone on the internet can access your bucket directly, which poses a security risk. You lose CloudFront's Origin Access Control feature, which allows CloudFront to securely access your private S3 bucket while other users are denied access. 
+
+2. Using AWS Global Accelerator instead of CloudFront
+With this type of architecture, traffic enters through the nearest AWS edge location and travels over AWS's private fiber to the S3 bucket and API Gateway. 
+
+Pros:
+- This type of setup is better at rerouting traffic when an AWS region becomes unhealthy.
+
+Cons
+- Unlike CloudFront, S3 does not cache content. As a result, it must handle every request. Each time a user requests a file, S3 counts it as a request, incurring a small cost that can add up quickly if your site receives a lot of traffic.
+- You pay a fixed hourly fee for each accelerator you own, even if no traffic passes through it.
+- In contrast to CloudFront, you pay for the public IPv4 addresses attached to your accelerators.
+
 
 
 
