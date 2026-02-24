@@ -40,11 +40,11 @@ Having considered these requirements, I decided to prioritize the following pill
 
 These pillars helped drive my architectural decisions for the serverless solution. Data is secured using managed AWS services and HTTPS, serverless components reduce costs by automatically scaling and eliminating idle resources, and performance is optimized to support global users efficiently. The architecture details are explained in the “How It Works” section. It's also worth mentioning that these priorities might be switched and modified based on business requirements. 
 
-## Design Decisions & Trade-offs
+## Design Decisions
 
 ### Component: Hosting Static Website
 
-Services Chosen:
+Selected solution:
 
 I decided to use Amazon S3 for static website hosting, CloudFront as a CDN, and AWS Certificate Manager for website security.
 
@@ -67,19 +67,49 @@ Implementation Details:
 8. Request a public TLS certificate in ACM for theepicbooks.com.
 9. Route traffic to the CloudFront distribution on Route 53. 
 
-Alternatives Considered and Trade-offs:
+### Component: Configuring the “Contact Us” section of the lead capture form
+
+Selected solution:
+
+I used Amazon API Gateway to securely expose the backend, AWS Lambda to process contact form submissions, Amazon SES to send email alerts, IAM to grant secure permissions, and CloudWatch to monitor and log.
+
+Why This Approach:
+- API Gateway provides a secure public URL for the website, allowing messages to be securely passed to the backend.
+- AWS Lambda automates form submissions, scales with demand, and eliminates the need to manage servers.
+- When a user submits a form, Amazon SES sends emails that are both reliable and cost-effective.
+- IAM Roles and Policies ensure that Lambda only has the necessary permissions (sending emails, writing logs), thereby improving security.
+- CloudWatch will act as our eyes and ears on the backend. It allows us to view what's going on, detect errors (including SES and Lambda issues), and track performance across the entire serverless system.
+- This serverless architecture eliminates operational efforts, reduces cost, and enables your frontend to communicate safely with the backend.
+
+Implementation Details:
+1. Set up the SES service and create two identities (sender and receiver email addresses).
+2. Create an IAM role to attach to the Lambda function, providing permissions to send emails using Amazon SES and write logs to Amazon CloudWatch.
+3. Create a Lambda function that invokes the Amazon SES API to send emails.
+4. Enabled CORS on the API Gateway to allow the website to access the API.
+5. Test API.
+
+
+
+
+
+
+ 
+
+## Trade-offs and Alternatives considered:
 
 In this section, we'll look at other viable AWS alternatives.
+
+### Component: Hosting Static Website
 
 1. Direct access to S3 with no CloudFront
 Rather than using CloudFront, users access the website using the web address that belongs to the S3 bucket.
 
 Pros:
-- Removes the responsibility of managing CloudFront distributions and invalidation.When you make changes to your website, users will see them immediately, without having to wait for a cache to clear.
+- Removes the responsibility of managing CloudFront distributions and invalidation. When you make changes to your website, users will see them immediately, without having to wait for a cache to clear.
 
 Cons:
 - S3 buckets are limited to a particular region, causing delays for customers outside that region. This goes against the company's purpose of providing a quick and responsive website for worldwide consumers.
-- In order to get HTTPS, you would need Amazon CloudFront in front of S3 so that you can attach an SSL certificate using Certificate Manager.This goes directly against our business requirement that all traffic must use HTTPS.
+- In order to get HTTPS, you would need Amazon CloudFront in front of S3 so that you can attach an SSL certificate using Certificate Manager. This goes directly against our business requirement that all traffic must use HTTPS.
 - It costs more to send data directly from S3 to the internet than to use CloudFront.
 - With this type of architecture, you would need to make your S3 bucket public. That means anyone on the internet can access your bucket directly, which poses a security risk. You lose CloudFront's Origin Access Control feature, which allows CloudFront to securely access your private S3 bucket while other users are denied access. 
 
