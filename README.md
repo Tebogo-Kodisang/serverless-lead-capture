@@ -364,6 +364,16 @@ The architecture is designed to minimize costs by leveraging serverless and mana
 
 **Operational Efficiency**: Fully managed services reduce the need for maintenance staff and manual patching.
 
+## Future Improvements
+
+While the current architecture meets the business requirements, several enhancements could be considered for future iterations:
+
+**Enhanced Analytics**: Integrate Amazon Athena or QuickSight to analyze lead data and track user engagement trends.
+**Advanced Email Personalization**: Use SES with templates or integrate with marketing automation tools to improve user experience.
+**Multi-Language Support**: Expand the website to support multiple languages for a broader audience.
+**Additional Security Layers**: Implement AWS WAF to protect against common web attacks or bot traffic.
+**Improved Scalability**: Incorporate Lambda provisioned concurrency or DynamoDB adaptive capacity if traffic grows significantly.
+
 
 
 
